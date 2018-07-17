@@ -3,7 +3,7 @@
 {% set bundle = "zip" %}
 {% set hash_type = "sha256" %}
 {% set hash = "de385e48582a4862e55a9167334d0fbe91d479026e5dac40e59e22c08b8e883e" %}
-{% set build = 0 %}
+{% set build = 1 %}
 
 package:
   name: {{ name|lower }}
@@ -15,11 +15,13 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
+  noarch: python
   number: {{ build }}
-  script: python setup.py install
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
 
   run:
