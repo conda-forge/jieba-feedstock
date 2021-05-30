@@ -1,30 +1,34 @@
 {% set name = "jieba" %}
-{% set version = "0.39" %}
+{% set version = "0.42.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: de385e48582a4862e55a9167334d0fbe91d479026e5dac40e59e22c08b8e883e
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 055ca12f62674fafed09427f176506079bc135638a14e23e25be909131928db2
 
 build:
   noarch: python
-  number: 1
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python
+    - python >=3.6
 
   run:
-    - python
+    - python >=3.6
 
 test:
   imports:
     - jieba
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/fxsjy/jieba
@@ -39,3 +43,4 @@ about:
 extra:
   recipe-maintainers:
     - pmlandwehr
+    - jan-janssen
